@@ -1,0 +1,68 @@
+        - lambda:
+           name: Picard
+           update_interval: 16s //Finetune to your liking with the transition lenght below
+           lambda: |-
+            #define Color1 0.482, 0.298, 0.129 
+            #define Color2 0.866, 0.564, 0.117
+            #define Color3 0.870, 0.717, 0.313 
+            #define Color4 0.717, 0.423, 0.133
+            #define Color5 0.949, 0.933, 0.909
+            #define Color6 0.639, 0.549, 0.478
+            #define Color5 0.945, 0.894, 0.619
+            #define Color4 0.909, 0.709, 0.168  
+            #define Color9 0.168, 0.149, 0.101
+            #define Color10 0.909, 0.709, 0.168 
+            #define Color11 0.705, 0.580, 0.388 
+            #define Color12 0.215, 0.545, 0.380
+            static int state = 0;
+            static int color = 1;
+            auto call = id(ID).turn_on(); //put the id for your light in here
+            call.set_transition_length(15000);
+            if (state == 0) 
+            {
+             call.set_brightness(0.01);
+             
+            }
+             else if (state == 1)
+            {
+               switch(color)
+               {
+                 case 1: call.set_rgb(Color1);
+                         break;
+                 case 2: call.set_rgb(Color2);
+                         break;
+                 case 3: call.set_rgb(Color3);
+                         break;
+                 case 4: call.set_rgb(Color4);
+                         break;
+                 case 5: call.set_rgb(Color5);
+                         break;
+                 case 6: call.set_rgb(Color6);
+                         break;
+                 case 7: call.set_rgb(Color7);
+                         break;
+                 case 8: call.set_rgb(Color8);
+                         break;
+                 case 9: call.set_rgb(Color9);
+                         break;
+                 case 10: call.set_rgb(Color10);
+                          break;
+                 case 11: call.set_rgb(Color11);
+                          break;
+                 case 12: call.set_rgb(Color12);
+                          break;
+               }
+              call.set_brightness(1.0);
+            }
+             
+             state ++;
+             if (state == 2){
+             state = 0;
+             }
+             color++;
+             if(color == 7)
+             {
+               color = 1;
+             }
+             call.perform();
+             
